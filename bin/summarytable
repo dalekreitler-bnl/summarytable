@@ -1,0 +1,13 @@
+#!/bin/bash
+
+PYTHON_PATH=/GPFS/CENTRAL/xf17id2/dkreitler/projects/summarytable/conda_env/summarytable-env/bin/python
+DK_PROJECTS=/GPFS/CENTRAL/xf17id2/dkreitler/projects
+
+if [[ "$HOSTNAME" == "xf17id1-ws1" ]]; then
+    $PYTHON_PATH $DK_PROJECTS/summarytable/summarytable_fmx.py
+    echo "fmx"
+else
+    $PYTHON_PATH $DK_PROJECTS/summarytable/summarytable.py
+    echo "amx"
+fi
+
