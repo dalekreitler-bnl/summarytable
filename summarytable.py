@@ -101,10 +101,6 @@ def parse_fdp_xml(filename):
                     ["AutoProcProgramContainer"]\
                     ["AutoProcProgramAttachment"][0]\
                     ["filePath"] 
-    path=fdp_xml["AutoProcContainer"]\
-                ["AutoProcProgramContainer"]\
-                ["AutoProcProgramAttachment"][0]\
-                ["filePath"]
 
     path_parts = PurePath(path).parts
     sample_name_path = '/'.join([path_parts[-4],path_parts[-3]])
