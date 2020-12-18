@@ -160,10 +160,6 @@ def parse_fdp_xml(filename):
             beta,
             gamma)
 
-except KeyError:
-    return None
-
-
 def format_results_string(*args):
     result_string = args[0]
     try:
