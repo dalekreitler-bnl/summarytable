@@ -47,7 +47,7 @@ class FileObserver:
                                  for fp in paths])
         new_results = ''.join([new_results,'\n'])
         self._results = ''.join([self._results,new_results])
-        with open('fast_dp.summary.txt.test','w') as f:
+        with open('fast_dp.summary.txt','w') as f:
             fcntl.flock(f,fcntl.LOCK_SH)
             f.write(self._results)
 
