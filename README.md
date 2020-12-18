@@ -1,5 +1,6 @@
 # summarytable
 **real time data processing result summary at NSLS-II MX beamlines**
+D. Kreitler, 18Dec2020
 
 summarytable is a bash shell script that summarizes results from within mx data directories created by LSDC.
 
