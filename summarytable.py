@@ -6,7 +6,7 @@ import xmltodict
 from pathlib import PurePath
 import os
 from time import sleep
-
+import fcntl
 
 def scan_directory(dirpath,
                    dirs_to_avoid=["dozor"],
