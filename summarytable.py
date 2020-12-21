@@ -44,7 +44,7 @@ class FileObserver:
         self._results = ''.join([make_header(),'\n'])
     def update(self, paths):
         new_results = '\n'.join([format_results_string(parse_fdp_xml(fp))
-                                 for fp in paths])
+                                 for fp in paths if parse_fdp_xml(fp)])
         new_results = ''.join([new_results,'\n'])
         self._results = ''.join([self._results,new_results])
         with open('fast_dp.summary.txt','w') as f:
@@ -57,7 +57,8 @@ class DisplayObserver:
         print(make_header())
     
     def update(self, paths): #display results in order files created
-        [print(format_results_string(parse_fdp_xml(f))) for f in paths]
+        [print(format_results_string(parse_fdp_xml(f))) for f in paths
+         if parse_fdp_xml(f)]
 
 def make_header():
     first_row = ''.join([f"{'':29}",
@@ -104,61 +105,65 @@ def parse_fdp_xml(filename):
 
     path_parts = PurePath(path).parts
     sample_name_path = '/'.join([path_parts[-4],path_parts[-3]])
-    
-    #all resolution shells
-    overall = fdp_xml["AutoProcContainer"]\
-                     ["AutoProcScalingContainer"]\
-                     ["AutoProcScalingStatistics"][0]
-    #pertinent values for table                 
-    res_lim_low_overall = float(overall["resolutionLimitLow"])
-    res_lim_high_overall = float(overall["resolutionLimitHigh"])
-    r_merge_overall = float(overall["rMerge"])
-    cc_half_overall = float(overall["ccHalf"])
-    comp_overall = float(overall["completeness"])
-    mult_overall = float(overall["multiplicity"])
    
-    #outer resolution shell
-    outer = fdp_xml["AutoProcContainer"]\
-                   ["AutoProcScalingContainer"]\
-                   ["AutoProcScalingStatistics"][2]
-    #pertinent values for table                 
-    res_lim_low_outer = float(outer["resolutionLimitLow"])
-    res_lim_high_outer = float(outer["resolutionLimitHigh"])
-    r_merge_outer = float(outer["rMerge"])
-    cc_half_outer = float(outer["ccHalf"])
-    comp_outer = float(outer["completeness"])
-    mult_outer = float(outer["multiplicity"])
-    
-    #symmetry info
-    cell = fdp_xml["AutoProcContainer"]["AutoProc"]
-    space_group = cell["spaceGroup"]
-    a = float(cell["refinedCell_a"])
-    b = float(cell["refinedCell_b"])
-    c = float(cell["refinedCell_c"])
-    alpha = float(cell["refinedCell_alpha"])
-    beta = float(cell["refinedCell_beta"])
-    gamma = float(cell["refinedCell_gamma"])
+    try:
+        #all resolution shells
+        overall = fdp_xml["AutoProcContainer"]\
+                         ["AutoProcScalingContainer"]\
+                         ["AutoProcScalingStatistics"][0]
+        #pertinent values for table                 
+        res_lim_low_overall = float(overall["resolutionLimitLow"])
+        res_lim_high_overall = float(overall["resolutionLimitHigh"])
+        r_merge_overall = float(overall["rMerge"])
+        cc_half_overall = float(overall["ccHalf"])
+        comp_overall = float(overall["completeness"])
+        mult_overall = float(overall["multiplicity"])
+       
+        #outer resolution shell
+        outer = fdp_xml["AutoProcContainer"]\
+                       ["AutoProcScalingContainer"]\
+                       ["AutoProcScalingStatistics"][2]
+        #pertinent values for table                 
+        res_lim_low_outer = float(outer["resolutionLimitLow"])
+        res_lim_high_outer = float(outer["resolutionLimitHigh"])
+        r_merge_outer = float(outer["rMerge"])
+        cc_half_outer = float(outer["ccHalf"])
+        comp_outer = float(outer["completeness"])
+        mult_outer = float(outer["multiplicity"])
+        
+        #symmetry info
+        cell = fdp_xml["AutoProcContainer"]["AutoProc"]
+        space_group = cell["spaceGroup"]
+        a = float(cell["refinedCell_a"])
+        b = float(cell["refinedCell_b"])
+        c = float(cell["refinedCell_c"])
+        alpha = float(cell["refinedCell_alpha"])
+        beta = float(cell["refinedCell_beta"])
+        gamma = float(cell["refinedCell_gamma"])
 
-    return (sample_name_path,
-            res_lim_high_overall,
-            res_lim_low_overall,
-            r_merge_overall,
-            cc_half_overall,
-            comp_overall,
-            mult_overall,
-            res_lim_high_outer,
-            res_lim_low_outer,
-            r_merge_outer,
-            cc_half_outer,
-            comp_outer,
-            mult_outer,
-            space_group,
-            a,
-            b,
-            c,
-            alpha,
-            beta,
-            gamma)
+        return (sample_name_path,
+                res_lim_high_overall,
+                res_lim_low_overall,
+                r_merge_overall,
+                cc_half_overall,
+                comp_overall,
+                mult_overall,
+                res_lim_high_outer,
+                res_lim_low_outer,
+                r_merge_outer,
+                cc_half_outer,
+                comp_outer,
+                mult_outer,
+                space_group,
+                a,
+                b,
+                c,
+                alpha,
+                beta,
+                gamma)
+
+    except KeyError:
+        return ''
 
 def format_results_string(*args):
     result_string = args[0]
@@ -184,7 +189,7 @@ def format_results_string(*args):
                                   f'{result_string[18]:7.1f}',#beta
                                   f'{result_string[19]:7.1f}'])#gamma
         return formatted_string
-    except TypeError:
+    except IndexError:
         return result_string
 
 
