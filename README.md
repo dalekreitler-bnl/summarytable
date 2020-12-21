@@ -1,5 +1,6 @@
 # summarytable
-**real time data processing result summary at NSLS-II MX beamlines**
+**real time data processing result summary at NSLS-II MX beamlines**</br>
+D. Kreitler, 18Dec2020
 
 summarytable is a bash shell script that summarizes results from within mx data directories created by LSDC.
 
@@ -9,23 +10,23 @@ The script does the following:
 * Concurrently updates result summaries to a file called "fast_dp.summary.txt"
 
 # Set-up
-This script is meant to be run on a node within the NSLS-II controls network that has access to GPFS.
-Add the following command to your .bashrc file:
+This script is meant to be run on a node within the NSLS-II controls network that has access to GPFS.</br>
+Add the following command to your .bashrc file:</br>
 
-export PATH=$PATH:/GPFS/CENTRAL/xf17id2/dkreitler/projects/summarytable/bin
+export PATH=$PATH:/GPFS/CENTRAL/xf17id2/dkreitler/projects/summarytable/bin</br>
 
 # Usage
-Multiple users can monitor data directories in real time.
-In your mx data directory, cd to the fast_dp_dir directory
+Multiple users can monitor data directories in real time.</br>
+In your mx data directory, cd to the fast_dp_dir directory</br>
 
-run:
+run:</br>
 summarytable
 
 # Example output
 (the formatting looks much better in the console)
  
 /GPFS/CENTRAL/xf17id2/inhouse/Startup-2020-03/mx305000-69</br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|---------------Overall------------------||-------------Outer-Shell----------------|</br>
+|---------------Overall------------------||-------------Outer-Shell----------------|</br>
 Sample Path     Hi     Lo  R_mrg   cc12   comp   mult     Hi     Lo  R_mrg   cc12   comp   mult        symm      a      b      c  alpha   beta  gamma</br>
 Mpro-oil-apo-2/4   2.44  28.00  0.112   0.98  98.50   3.50   2.44   2.50  0.498   0.73  96.20   3.60     C 1 2 1  114.2   54.0   44.8   90.0  101.3   90.0</br>
 Mpro-oil-apo-3/3   2.47  27.70  0.097   0.99  99.60   3.50   2.47   2.53  0.664   0.72  97.70   3.50     C 1 2 1  113.2   53.6   44.6   90.0  101.9   90.0</br>
