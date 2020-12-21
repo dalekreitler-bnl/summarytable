@@ -23,7 +23,7 @@ run:</br>
 summarytable
 
 # Output
-Summary table of results will be updated in a file named fast_dp.summary.txt in the working directory<\br>
+Summary table of results will be updated in a file named fast_dp.summary.txt in the working directory</br>
 This file can be opened in Microsoft Excel or LibreOffice using spaces as a delimiter.
 
 
