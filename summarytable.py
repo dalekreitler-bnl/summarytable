@@ -13,19 +13,19 @@ def scan_directory(dirpath,
                    sort_dirs=True,
                    filepatterns=["fast_dp.xml","autoPROC.xml"]):
 
-    path_set = set([])
+    path_dict = {}
     for (dirpath,dirnames,filenames) in os.walk(dirpath,topdown=True):
         dirnames[:] = [d for d in dirnames if d not in dirs_to_avoid]
-        [path_set.add(os.path.join(dirpath,f)) for f in filenames
-        if f in filepatterns]
-
-    return path_set
+        for f in filenames:
+            if f in filepatterns:
+                path_dict[f"{os.path.join(dirpath,f)}"] = os.path.getmtime(os.path.join(dirpath,f))
+    return path_dict
 
 class DataDirectory:
     def __init__(self,dirpath):
         self._dirpath = dirpath
         self._observer_list = []
-        self._path_set = set([])
+        self._path_dict = {}
 
     def attach(self,observer):
         self._observer_list.append(observer)
@@ -34,10 +34,20 @@ class DataDirectory:
         [observer.update(path_set) for observer in self._observer_list]
 
     def check_directory(self):
-        path_set = scan_directory(self._dirpath)
-        if path_set != self._path_set:
-            self.notify(sorted(path_set-self._path_set,key=os.path.getmtime))
-            self._path_set = path_set
+        path_dict = scan_directory(self._dirpath)
+        path_set_to_send = set([])
+        for pd in path_dict:
+            #check for new file
+            if pd in self._path_dict:
+                #check for update to file
+                if path_dict[pd] - self._path_dict[pd] > 0:
+                    path_set_to_send.add(pd)
+            else:
+                path_set_to_send.add(pd)
+
+        if path_set_to_send:
+            self.notify(sorted(path_set_to_send,key=os.path.getmtime))
+        self._path_dict = path_dict
 
 class FileObserver:
     def __init__(self):
@@ -53,7 +63,6 @@ class FileObserver:
 
 class DisplayObserver:
     def __init__(self):
-        self._path_set = set([])
         print(make_header())
     
     def update(self, paths): #display results in order files created
