@@ -5,9 +5,9 @@ DK_PROJECTS=/GPFS/CENTRAL/xf17id2/dkreitler/projects
 
 if [[ "$HOSTNAME" == "xf17id1-ws1" ]]; then
     $PYTHON_PATH $DK_PROJECTS/summarytable/summarytable_fmx.py
-    echo "fmx"
+    echo "summarytable for FMX"
 else
     $PYTHON_PATH $DK_PROJECTS/summarytable/summarytable.py
-    echo "amx"
+    echo "summarytable for AMX"
 fi
 
