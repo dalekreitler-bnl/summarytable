@@ -204,17 +204,20 @@ def format_results_string(*args):
 
 if __name__ == "__main__":
     test_dir = os.getcwd()
-    if os.path.basename(test_dir) == "fast_dp_dir":
-        mx_directory = PurePath(test_dir).parent
-        print(mx_directory)
-        d = DataDirectory(mx_directory)
-        dobs = DisplayObserver()
-        fobs = FileObserver()
-        d.attach(dobs)
-        d.attach(fobs)
-        while True:
-            d.check_directory()
-            sleep(10)
-    else:
-        print("summarytable must be launched from fast_dp_dir...")
+    try:
+        if os.path.basename(test_dir) == "fast_dp_dir":
+            mx_directory = PurePath(test_dir).parent
+            print(mx_directory)
+            d = DataDirectory(mx_directory)
+            dobs = DisplayObserver()
+            fobs = FileObserver()
+            d.attach(dobs)
+            d.attach(fobs)
+            while True:
+                d.check_directory()
+                sleep(10)
+        else:
+            print("summarytable must be launched from fast_dp_dir...")
+    except KeyboardInterrupt:
+        print("\nExiting gracefully...")
 
