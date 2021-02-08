@@ -70,10 +70,10 @@ class DisplayObserver:
          if parse_fdp_xml(f)]
 
 def make_header():
-    first_row = ''.join([f"{'':29}",
+    first_row = ''.join([f"{'':34}",
                          f'{"|---------------Overall------------------|":^14}',
                          f'{"|-------------Outer-Shell----------------|":^14}\n',])
-    formatted_string=''.join([f'{"Sample Path":>29}',
+    formatted_string=''.join([f'{"Sample Path":>34}',
                               f'{"Hi":>7}',
                               f'{"Lo":>7}',
                               f'{"R_mrg":>7}',
@@ -177,7 +177,7 @@ def parse_fdp_xml(filename):
 def format_results_string(*args):
     result_string = args[0]
     try:
-        formatted_string=''.join([f'{result_string[0]:>29}',#sample path
+        formatted_string=''.join([f'{result_string[0]:>34}',#sample path
                                   f'{result_string[1]:7.2f}',#high res cut overall
                                   f'{result_string[2]:7.2f}',#low res cut overall
                                   f'{result_string[3]:7.3f}',#R_merge overall
