@@ -1,26 +1,50 @@
 # summarytable
 **real time data processing result summary at NSLS-II MX beamlines**</br>
 D. Kreitler, 18Dec2020
+updated 16May2022
 
-summarytable is a bash shell script that summarizes results from within mx data directories created by LSDC.
+summarytable is a python script that summarizes results from within mx data directories created by LSDC.
 
 The script does the following:
 * parses fast_dp.xml or autoPROC.xml files from auto processing pipelines
 * prints the results to console in real time as results are available
-* Concurrently updates result summaries to a file called "fast_dp.summary.txt"
+* Concurrently updates result summaries to a file called "fast_dp.summary.txt" or "autoPROC.summary.txt"
 
 # Set-up
-This script is meant to be run on a node within the NSLS-II controls network that has access to GPFS.</br>
-Add the following command to your .bashrc file:</br>
+This script is can be run within the NSLS-II network on a machine that has access to Lustre/GPFS.</br>
 
-export PATH=$PATH:/GPFS/CENTRAL/xf17id2/dkreitler/projects/summarytable/bin</br>
+# Installation
+Try installing as a python3 package in your profile </br>
+```
+python3 setup.py install --user
+```
 
-# Usage
+Or try installing with pip3 </br>
+```
+pip3 install summarytable
+```
+
+On your local machine if you've already downloaded the data from nsls2 </br>
+
+```
+git clone https://www.github.com/dalekreitler-bnl/summarytable
+
+cd summarytable
+
+python3 setup.py install
+```
+
+
+# Online/realtime Usage
 Multiple users can monitor data directories in real time.</br>
-In your mx data directory, cd to the fast_dp_dir directory</br>
+In your mx data directory, cd to the fast_dp_dir or autoProc_dir directory</br>
 
 run:</br>
 summarytable
+
+# Offline Usage
+run:</br>
+summarytable_offline
 
 # Output
 Summary table of results will be updated in a file named fast_dp.summary.txt in the working directory</br>
