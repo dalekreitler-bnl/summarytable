@@ -1,14 +1,22 @@
+#!/usr/bin/env python
+
 import xmltodict
 from pathlib import PurePath
 import os
 from time import sleep
 import fcntl
 
+class BaseName:
+    def __init__(self, name="fast_dp"):
+        self.name = name
+        self.xml_pattern = ''.join([name,'.xml'])
+        self.txt_pattern = ''.join([name,'.summary.txt'])
+        self.csv_pattern = ''.join([name,'.summary.csv'])
+
 def scan_directory(dirpath,
                    dirs_to_avoid=["dozor"],
                    sort_dirs=True,
                    filepatterns=["fast_dp.xml","autoPROC.xml"]):
-
     path_dict = {}
     for (dirpath,dirnames,filenames) in os.walk(dirpath,topdown=True):
         dirnames[:] = [d for d in dirnames if d not in dirs_to_avoid]
@@ -18,7 +26,8 @@ def scan_directory(dirpath,
     return path_dict
 
 class DataDirectory:
-    def __init__(self,dirpath):
+    def __init__(self,dirpath,basename=None):
+        self._basename = basename
         self._dirpath = dirpath
         self._observer_list = []
         self._path_dict = {}
@@ -30,7 +39,9 @@ class DataDirectory:
         [observer.update(path_set) for observer in self._observer_list]
 
     def check_directory(self):
-        path_dict = scan_directory(self._dirpath)
+        path_dict = scan_directory(
+                        self._dirpath,
+                        filepatterns=self._basename.xml_pattern)
         path_set_to_send = set([])
         for pd in path_dict:
             #check for new file
@@ -46,14 +57,15 @@ class DataDirectory:
         self._path_dict = path_dict
 
 class FileObserver:
-    def __init__(self):
+    def __init__(self,basename=None):
+        self._basename = basename
         self._results = ''.join([make_header(),'\n'])
     def update(self, paths):
         new_results = '\n'.join([format_results_string(parse_fdp_xml(fp))
                                  for fp in paths if parse_fdp_xml(fp)])
         new_results = ''.join([new_results,'\n'])
         self._results = ''.join([self._results,new_results])
-        with open('fast_dp.summary.txt','w') as f:
+        with open(self._basename.txt_pattern,'w') as f:
             fcntl.flock(f,fcntl.LOCK_SH)
             f.write(self._results)
 
