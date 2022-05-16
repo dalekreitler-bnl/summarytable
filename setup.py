@@ -13,6 +13,6 @@ setup(
     long_description=open('README.md').read(),
     install_requires=[
         "xmltodict",
-        "python>=3.8",
     ],
+    python_requires='>=3.8',
 )
