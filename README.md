@@ -42,13 +42,19 @@ In your mx data directory, cd to the fast_dp_dir or autoProc_dir directory</br>
 run:</br>
 summarytable
 
+The .csv file will be written when the process is stopped with Ctrl-C.</br>
+
 # Offline Usage
 run:</br>
-summarytable_offline
+summarytable_offline</br>
+
+The .txt file and .csv file will be written immediately in the working directory.</br>
+
 
 # Output
-Summary table of results will be updated in a file named fast_dp.summary.txt in the working directory</br>
-This file can be opened in Microsoft Excel or LibreOffice using spaces as a delimiter.
+Summary table of results will be updated in files ending with .summary.txt and .summary.csv</br>
+in the working directory.</br>
+These files can be opened in Microsoft Excel or LibreOffice using commas/spaces as a delimiter.
 ```
 /GPFS/CENTRAL/xf17id2/inhouse/Startup-2020-03/mx305000-69
                              |---------------Overall------------------||-------------Outer-Shell----------------|
