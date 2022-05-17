@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 
 import xmltodict
 from pathlib import PurePath

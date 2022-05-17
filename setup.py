@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='summarytable',
-    version='0.1.0',
+    version='0.1.1',
     author='Dale Kreitler',
     author_email='dkreitler@bnl.gov',
     packages=['summarytable',],
