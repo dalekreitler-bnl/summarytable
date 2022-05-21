@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='summarytable',
-    version='0.1.3',
+    version='0.1.6',
     author='Dale Kreitler',
     author_email='dkreitler@bnl.gov',
     packages=['summarytable',],
@@ -17,5 +17,5 @@ setup(
     install_requires=[
         "xmltodict",
     ],
-    python_requires='>=3.8',
+    python_requires='>=3.6',
 )
