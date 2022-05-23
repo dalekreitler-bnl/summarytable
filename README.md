@@ -16,7 +16,7 @@ This script is can be run within the NSLS-II network on a machine that has acces
 # Installation
 Try installing as a python3 package in your profile </br>
 ```
-python3 setup.py install --user
+pip3 install summarytable  --user
 ```
 
 Or try installing with pip3 </br>
