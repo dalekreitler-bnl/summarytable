@@ -20,19 +20,9 @@ For instance on a beamline workstation. </br>
 pip3 install summarytable  --user
 ```
 
-Or try installing with pip3 </br>
+Or try installing with pip3 on your home workstation </br>
 ```
 pip3 install summarytable
-```
-
-On your local machine if you've already downloaded the data from nsls2 </br>
-
-```
-git clone https://www.github.com/dalekreitler-bnl/summarytable
-
-cd summarytable
-
-python3 setup.py install
 ```
 
 
