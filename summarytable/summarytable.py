@@ -80,7 +80,7 @@ def make_header():
     first_row = ''.join([f"{'':34}",
                          f'{"|---------------Overall------------------|":^14}',
                          f'{"|-------------Outer-Shell----------------|":^14}\n',])
-    formatted_string=''.join([f'{"Sample Path":>34}',
+    formatted_string=''.join([f'{"Sample_Path":>34}',
                               f'{"Hi":>7}',
                               f'{"Lo":>7}',
                               f'{"R_mrg":>7}',
